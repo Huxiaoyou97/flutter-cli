@@ -106,7 +106,7 @@ class FlutterAppRouteDelegate extends RouterDelegate<FlutterRoutePath>
   }
 
   /// 用户是否登录
-  bool get hasLogin => false;
+  bool get hasLogin => true;
 
   @override
   Future<void> setNewRoutePath(FlutterRoutePath path) async {}
