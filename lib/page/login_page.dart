@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/i18n/get_local.dart';
 import 'package:flutter_demo/navigator/hi_navigator.dart';
@@ -20,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: appBar("密码登录", "注册", () {
         // 跳转注册
         HiNavigator.getInstance().onJumpTo(RouteStatus.register, args: {
-          "id": 123,
+          "id": "我是登录页面传到注册页面的id：123456",
         });
       }),
       body: Container(

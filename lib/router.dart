@@ -17,9 +17,9 @@ class FlutterAppRouteDelegate extends RouterDelegate<FlutterRoutePath>
     HiNavigator.getInstance().registerRouteJump(
         RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map args}) {
       _routeStatus = routeStatus;
-      // if (_routeStatus == RouteStatus.detail) {
-      //   videoModel = args["videoMo"];
-      // }
+      if (_routeStatus == RouteStatus.register) {
+        id = args["id"];
+      }
       notifyListeners();
     }));
   }
@@ -29,6 +29,8 @@ class FlutterAppRouteDelegate extends RouterDelegate<FlutterRoutePath>
 
   /// 存放所有的页面
   List<MaterialPage> pages = [];
+
+  String id;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class FlutterAppRouteDelegate extends RouterDelegate<FlutterRoutePath>
       page = pageWrap(BottomNavigator());
     }
     else if (routeStatus == RouteStatus.register) {
-      page = pageWrap(RegisterPage());
+      page = pageWrap(RegisterPage(id: id,));
     }
     else if (routeStatus == RouteStatus.login) {
       page = pageWrap(LoginPage());

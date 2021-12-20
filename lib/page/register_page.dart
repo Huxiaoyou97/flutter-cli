@@ -3,16 +3,15 @@ import 'package:flutter_demo/navigator/hi_navigator.dart';
 import 'package:flutter_demo/widget/appbar.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key key}) : super(key: key);
+  final String id;
+
+  const RegisterPage({Key key, this.id}) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
         HiNavigator.getInstance().onJumpTo(RouteStatus.login);
       }),
       body: Container(
-        child: Text("注册"),
+        child: Text("注册${widget?.id}"),
       ),
     );
   }
