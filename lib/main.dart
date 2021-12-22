@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/db/hi_cache.dart';
+import 'package:flutter_demo/provider/count_provider.dart';
+import 'package:flutter_demo/provider/hi_provider.dart';
 import 'package:flutter_demo/router.dart';
 import 'package:flutter_demo/util/color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'i18n/get_local.dart';
 import 'i18n/my_localizations_delegates.dart';

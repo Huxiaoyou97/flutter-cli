@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/navigator/hi_navigator.dart';
+import 'package:flutter_demo/provider/count_provider.dart';
+import 'package:flutter_demo/provider/hi_provider.dart';
 import 'package:flutter_demo/util/view_util.dart';
 import 'package:flutter_demo/widget/loading_container.dart';
 import 'package:flutter_demo/widget/navigation_bar.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -15,7 +18,7 @@ class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin, WidgetsBindingObserver {
   var listener;
 
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   Widget _currentPage;
 
@@ -47,6 +50,7 @@ class _HomePageState extends State<HomePage>
       child: Column(
         children: [
           _buildNavigationBar(),
+          _buildContent(context),
         ],
       ),
     );
@@ -67,4 +71,69 @@ class _HomePageState extends State<HomePage>
 
   @override
   bool get wantKeepAlive => true;
+
+  _buildContent(BuildContext context) {
+    return MultiProvider(
+      providers: hiProviders,
+      child: Consumer<CountProvider>(
+        builder: (
+          BuildContext context,
+          CountProvider countProvider,
+          Widget child,
+        ) {
+          return Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const HomeCount(),
+                ElevatedButton(
+                  onPressed: countProvider.increment,
+                  child: const Text("+1"),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.orange),
+                    // textStyle: MaterialStateProperty.all(
+                    //   const TextStyle(fontSize: 18, color: Colors.red),
+                    // ),
+                    //设置按钮上字体与图标的颜色
+                    // foregroundColor: MaterialStateProperty.all(Colors.white),
+
+                    //更优美的方式来设置
+                    foregroundColor: MaterialStateProperty.resolveWith(
+                      (states) {
+                        if (states.contains(MaterialState.focused) &&
+                            !states.contains(MaterialState.pressed)) {
+                          //获取焦点时的颜色
+                          return Colors.blue;
+                        } else if (states.contains(MaterialState.pressed)) {
+                          //按下时的颜色
+                          return Colors.deepPurple;
+                        }
+                        //默认状态使用灰色
+                        return Colors.white;
+                      },
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+
+      ),
+    );
+  }
+}
+
+class HomeCount extends StatelessWidget {
+  const HomeCount({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '${context.watch<CountProvider>().count}',
+      style: Theme.of(context).textTheme.headline2,
+    );
+  }
 }
