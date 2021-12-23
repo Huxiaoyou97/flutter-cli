@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_demo/http/request/base_request.dart';
 import 'package:flutter_demo/util/hi_constants.dart';
 
@@ -53,8 +55,10 @@ class HiNet {
 
   Future<dynamic> send<T>(BaseRequest request) async {
     request
-        .addHeader(HiConstants.courseFlagK, HiConstants.courseFlagV)
-        .addHeader(HiConstants.authTokenKey, HiConstants.authTokenVal);
+        .addHeader("m", '1')
+        .addHeader("lang", "zh-cn")
+        .addHeader("device", "wap");
+
     printLog("header:${request.header}");
 
     HiNetAdapter adapter = DioApapter();

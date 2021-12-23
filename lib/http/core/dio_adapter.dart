@@ -23,6 +23,7 @@ class DioApapter extends HiNetAdapter {
       response = e.response;
     }
 
+
     if (error != null) {
       throw HiNetError(response?.statusCode ?? -1, error.toString(),
           data: await buildRes(response, request));

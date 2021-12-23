@@ -1,6 +1,6 @@
 class ApiUrlConfig {
   /// 开发地址
-  static String API_DEV_URL = "api.devio.org";
+  static String API_DEV_URL = "http://192.168.80.246:8020/api_v1";
 
   /// 测试地址
   static String API_TEST_URL = "api.devio.org";

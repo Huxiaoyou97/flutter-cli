@@ -9,10 +9,11 @@ abstract class BaseRequest {
   var pathParams;
 
   /// 是否开启https
-  var useHttps = true;
+  var useHttps = false;
 
   /// 域名
   String authority() {
+    print("Global.getApiUrl()${Global.getApiUrl()}");
     return Global.getApiUrl();
   }
 
@@ -24,7 +25,7 @@ abstract class BaseRequest {
 
   /// url 方法
   String url() {
-    Uri uri;
+    String uri;
     var pathStr = path();
 
     /// 拼接 path 参数
@@ -37,10 +38,20 @@ abstract class BaseRequest {
     }
 
     /// http 与 https切换
-    if (useHttps) {
-      uri = Uri.https(authority(), pathStr, params);
-    } else {
-      uri = Uri.http(authority(), pathStr, params);
+    // if (useHttps) {
+    //   uri = Uri.https(authority(), pathStr, params);
+    // } else {
+    //   uri = Uri.http(authority(), pathStr, params);
+    // }
+
+    uri = authority();
+
+    if (uri != null) {
+      if (pathStr.startsWith("/")) {
+        uri = "$uri$pathStr";
+      } else {
+        uri = "$uri/$pathStr";
+      }
     }
 
     /// 判断是否需要携带token
@@ -48,6 +59,7 @@ abstract class BaseRequest {
       // addHeader(LoginDao.BOARDING_PASS, LoginDao.getBoardingPass());
     }
 
+    print("pathStr${pathStr}");
     print("url:${uri.toString()}");
 
     return uri.toString();
