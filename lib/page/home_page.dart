@@ -148,7 +148,6 @@ class _HomePageState extends State<HomePage>
   void _loadData() async {
     try {
       await ConfigDao.get(Provider.of<ConfigProvider>(context, listen: false)); // 获取系统配置
-
     } on NeedAuth catch (e) {
       showErrorToast(e.message);
     } on HiNetError catch (e) {
